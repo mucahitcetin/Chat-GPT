@@ -5,7 +5,7 @@ const themeButton = document.querySelector("#theme-btn");
 const deleteButton = document.querySelector("#delete-btn");
 
 let userText = null;
-const API_KEY = "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";
+const API_KEY = "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";
 const initialHeight = chatInput.scrollHeight;
 
 // sayfa yüklendiğinde yerel depodan(localStorage) veri yükler
@@ -42,7 +42,20 @@ const createElement = (html, className) => {
 const getChatResponse = async (incomingChatDiv) => {
   const API_URL = "https://api.openai.com/v1/chat/completions ";
   const pElement = document.createElement("p");
-  // api talebi için özelliklerini ve verileri tanımlama
+    // api talebi için özellikleri ve verileri tanımlama
+    const requestData = {
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content: "You are a helpful assistant.",
+        },
+        {
+          role: "user",
+          content: `${userText}`,
+        },
+      ],
+    };
   const requestOptions = {
     method: "POST",
     headers: {
@@ -68,10 +81,10 @@ const getChatResponse = async (incomingChatDiv) => {
     pElement.textContent = "Opppss";
     pElement.style.color = "red";
   }
-  incomingChatDiv.querySelector(".typing-animation").remove(); // animasyonu kaldırma
-  incomingChatDiv.querySelector(".chat-details").appendChild(pElement); //  yeni cevapla alakalı paragrafa ekleme
-  chatContainer.scrollTo(0, chatContainer.scrollHeight); // cevap kadar container'ı uzamasına izin verme
-  localStorage.setItem("all-chats", chatContainer.innerHTML);  // seçilen verilerin local storage da tutulması
+  incomingChatDiv.querySelector(".typing-animation").remove();
+  incomingChatDiv.querySelector(".chat-details").appendChild(pElement);
+  chatContainer.scrollTo(0, chatContainer.scrollHeight);
+  localStorage.setItem("all-chats", chatContainer.innerHTML);
 };
 
 const showTypingAnimation = () => {
