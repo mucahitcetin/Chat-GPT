@@ -40,7 +40,7 @@ const createElement = (html, className) => {
 };
 
 const getChatResponse = async (incomingChatDiv) => {
-  const API_URL = "https://api.openai.com/v1/chat/completions ";
+  const API_URL = "https://api.openai.com/v1/chat/completions";
   const pElement = document.createElement("p");
     // api talebi için özellikleri ve verileri tanımlama
     const requestData = {
@@ -56,21 +56,14 @@ const getChatResponse = async (incomingChatDiv) => {
         },
       ],
     };
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${API_KEY}`,
-    },
-    body: JSON.stringify({
-      model: "text-davinci-003",
-      prompt: userText,
-      max_tokens: 2048,
-      temperature: 0.2,
-      n: 1,
-      stop: null,
-    }),
-  };
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${API_KEY}`,
+      },
+      body: JSON.stringify(requestData),
+    };
   //
   try {
     const response = await (await fetch(API_URL, requestOptions)).json();
