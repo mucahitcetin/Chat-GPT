@@ -5,7 +5,7 @@ const themeButton = document.querySelector("#theme-btn");
 const deleteButton = document.querySelector("#delete-btn");
 
 let userText = null;
-const API_KEY = "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";
+const API_KEY = "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";
 const initialHeight = chatInput.scrollHeight;
 
 // sayfa yüklendiğinde yerel depodan(localStorage) veri yükler
@@ -68,7 +68,7 @@ const getChatResponse = async (incomingChatDiv) => {
   try {
     const response = await (await fetch(API_URL, requestOptions)).json();
     console.log(response);
-    pElement.textContent = response.choices[0].text.trim();
+    pElement.textContent = response.choices[0].message.content.trim();
   } catch (error) {
     console.log(error);
     pElement.textContent = "Opppss";
